@@ -19,7 +19,7 @@ export default function Header() {
                     opacity: 0,
                     y: -50,
                     height: 0,
-                    duration: 0.5,
+                    duration: 0.3,
                     ease: "power2.inOut",
                 })
 
@@ -27,7 +27,7 @@ export default function Header() {
                     opacity: 1,
                     y: 0,
                     height: "13vh",
-                    duration: 0.5,
+                    duration: 0.3,
                     ease: "power2.inOut",
                 })
 
@@ -37,7 +37,7 @@ export default function Header() {
                     opacity: 1,
                     y: 0,
                     height: "3vh",
-                    duration: 0.5,
+                    duration: 0.3,
                     ease: "power2.inOut",
                 })
 
