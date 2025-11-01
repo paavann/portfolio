@@ -15,7 +15,7 @@ function App() {
         <Intro />
       </main>
 
-      <section>
+      <section className="w-screen h-screen">
         <About />
       </section>
     </>

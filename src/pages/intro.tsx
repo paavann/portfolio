@@ -43,7 +43,7 @@ export default function Intro() {
                     <DrawerTrigger asChild>
                         <Button
                             variant="outline"
-                            className=" relative overflow-hidden p-[2%] border-4 border-black bg-transparent group cursor-pointer"
+                            className=" relative overflow-hidden p-[2.5%] border-4 border-black bg-transparent group cursor-pointer"
                         >
                             <span className="absolute top-0 bottom-0 left-0 right-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0" />
                             <span className="relative z-10 text-3xl text-black font-extrabold group-hover:text-white self-center mb-1">
@@ -58,24 +58,24 @@ export default function Intro() {
                                 <Envelope size={45} color="white" />
                                 <span className="text-4xl font-extrabold text-white mb-[0.5%]">Contact me</span>
                             </DrawerTitle>
-                            <DrawerDescription className="text-1xl">Please fill in your details and message if you'd like to work with me. I'll get back to you. :)</DrawerDescription>
+                            <DrawerDescription className="text-1xl text-[rgb(200,210,220)]">Please fill in your details and message if you'd like to work with me. I'll get back to you. :)</DrawerDescription>
                         </DrawerHeader>
 
                         <div className="flex flex-col justify-center items-center p-10 gap-3 text-white">
                             <input
                                 type="text"
                                 placeholder="Name"
-                                className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300"
+                                className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 pl-5"
                             />
                             <input
                                 type="text"
                                 placeholder="E-Mail"
-                                className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300"
+                                className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 pl-5"
                             />
                             <textarea
                                 placeholder="Your Message"
                                 rows={4}
-                                className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 mt-[2%]"
+                                className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 mt-[2%] pl-5"
                             />
                         </div>
 
@@ -84,14 +84,15 @@ export default function Intro() {
                                 variant="secondary"
                                 className="cursor-pointer"
                             >
-                                <PaperPlaneTilt size={32} weight="fill" />Send
+                                <PaperPlaneTilt size={32} weight="fill" />
+                                <span className="font-extrabold">Send</span>
                             </Button>
                             <DrawerClose asChild>
                                 <Button
                                     variant="destructive"
                                     className="cursor-pointer"
                                 >
-                                    Cancel
+                                    <span className="font-extrabold text-white">Cancel</span>
                                 </Button>
                             </DrawerClose>
                         </DrawerFooter>
@@ -99,7 +100,7 @@ export default function Intro() {
                 </Drawer>
             </div>
 
-            <h1 className="relative font-extrabold text-5xl w-[50%] self-center justify-self-end">
+            <h1 className="relative font-extrabold text-5xl w-[50%] self-center justify-self-end mt-20">
                 Hey there! I'm Pavan. I'm a professional Web Developer. Scroll to get to know more about Me!
             </h1>
         </div>

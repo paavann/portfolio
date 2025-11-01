@@ -1,60 +1,37 @@
-import { Card, CardContent } from "@/components/ui/card"
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-} from "@/components/ui/carousel"
-import Autoplay from "embla-carousel-autoplay"
-
-import reactLogo from "../assets/react.svg"
-
-
-
-
-const skills = [
-  { name: "React", logo: reactLogo, link: "#" },
-  { name: "Next.js", logo: reactLogo, link: "#" },
-  { name: "NodeJS", logo: reactLogo, link: "#" },
-  { name: "fastapi", logo: reactLogo, link: "#" },
-  { name: "tensorflow", logo: reactLogo, link: "#" },
-  { name: "python", logo: reactLogo, link: "#" },
-  { name: "c++", logo: reactLogo, link: "#" },
-  { name: "c", logo: reactLogo, link: "#" },
-  { name: "js", logo: reactLogo, link: "#" },
-  // Add more skills here
-];
+import placeholder from "../assets/placeholder.avif"
 
 export default function About() {
 
     return (
-        <div className="w-screen h-[87vh] flex flex-row bg-[#F2F2F2]">
-            <div className="w-[60%] h-full p-[2%]">
-                <h1 className="text-5xl text-black font-extrabold">about me.</h1>
+        <div className="flex flex-col w-[100%] h-[100%] p-10 bg-[#F2F2F2]">
+            <h1 className="text-5xl text-black font-extrabold ml-10">about me.</h1>
 
-                <Carousel className="w-full max-w-xs">
-                    <CarouselContent>
-                        {skills.map((skill, index) => (
-                            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                                <a href={skill.link} target="_blank" rel="noopener noreferrer">
-                                    <div className="p-1">
-                                        <Card>
-                                            <CardContent className="flex aspect-square items-center justify-center p-6">
-                                                <img
-                                                    src={skill.logo}
-                                                    alt={skill.name}
-                                                    className="w-12 h-12 mb-2"
-                                                />
-                                                <span className="text-sm text-center">{skill.name}</span>
-                                            </CardContent>
-                                        </Card>
-                                    </div>
-                                </a>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                </Carousel>
+            <div className="flex flex-row justify-between mt-15 h-[-webkit-fill-available]">
+                <img
+                    src={placeholder}
+                    alt="Pavan"
+                    className="h-[-webkit-fill-available] w-[35%] rounded-2xl shadow-lg"
+                />
+
+                <div className="w-[60%]">
+                    <div className="flex flex-col gap-7 p-10 bg-[rgb(0_21_36)] rounded-2xl h-[-webkit-fill-available]">
+                        <p className="text-xl text-white font-extrabold">
+                            Hey there!!! I’m Pavan — a developer who loves turning ideas into reality through code.
+                            I’m deeply passionate about building software that solves real-world problems in creative and efficient ways.
+                            Whether it’s designing seamless user experiences or optimizing systems behind the scenes, I enjoy every part of the process.
+                        </p>
+                        <p className="text-xl text-white font-extrabold">
+                            What drives me most is curiosity — I’m constantly learning, experimenting, and pushing myself to understand how things work (and how they can work better).
+                            For me, development isn’t just about writing code — it’s about crafting meaningful solutions that make an impact.
+                        </p>
+                        <p className="text-xl text-white font-extrabold">
+                            I’m always excited to learn, build, and grow through new challenges.
+                            If you’re passionate about solving real-world problems creatively, let’s connect.
+                            Feel free to reach out — I’d love to collaborate and create something impactful together.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div className="w-[40%] h-full">section 2</div>
         </div>
     )
 }
