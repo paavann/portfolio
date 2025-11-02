@@ -3,10 +3,10 @@ import placeholder from "../assets/placeholder.avif"
 export default function About() {
 
     return (
-        <div className="flex flex-col w-[100%] h-[100%] p-10 bg-[#F2F2F2]">
-            <h1 className="text-5xl text-black font-extrabold ml-10">about me.</h1>
+        <div className="flex flex-col p-10 bg-[rgb(0_21_36)] w-full">
+            <h1 className="text-5xl text-white font-extrabold ml-5">about me.</h1>
 
-            <div className="flex flex-row justify-between mt-15 h-[-webkit-fill-available]">
+            <div className="flex flex-row justify-between mt-10 h-[-webkit-fill-available]">
                 <img
                     src={placeholder}
                     alt="Pavan"
@@ -14,7 +14,7 @@ export default function About() {
                 />
 
                 <div className="w-[60%]">
-                    <div className="flex flex-col gap-7 p-10 bg-[rgb(0_21_36)] rounded-2xl h-[-webkit-fill-available]">
+                    <div className="flex flex-col gap-7 p-10 rounded-2xl h-[-webkit-fill-available]">
                         <p className="text-xl text-white font-extrabold">
                             Hey there!!! I’m Pavan — a developer who loves turning ideas into reality through code.
                             I’m deeply passionate about building software that solves real-world problems in creative and efficient ways.
