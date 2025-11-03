@@ -16,7 +16,7 @@ export default function About() {
                 <div className="w-[60%]">
                     <div className="flex flex-col gap-7 p-10 rounded-2xl h-[-webkit-fill-available]">
                         <p className="text-xl text-white font-extrabold">
-                            Hey there!!! I’m Pavan — a developer who loves turning ideas into reality through code.
+                            I’m Pavan — a developer who loves turning ideas into reality through code.
                             I’m deeply passionate about building software that solves real-world problems in creative and efficient ways.
                             Whether it’s designing seamless user experiences or optimizing systems behind the scenes, I enjoy every part of the process.
                         </p>

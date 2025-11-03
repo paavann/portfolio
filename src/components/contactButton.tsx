@@ -1,3 +1,4 @@
+import { useEffect, useState, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import {
     Drawer,
@@ -11,14 +12,66 @@ import {
 } from "@/components/ui/drawer"
 import { PaperPlaneTilt } from "phosphor-react"
 import { Envelope } from "phosphor-react"
+import { useForm, ValidationError } from "@formspree/react"
+import gsap from "gsap"
 
 
 
 export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string }) {
+    const [state, handleSubmit] = useForm("mldoydyw")
+    const [drawerOpen, setDrawerOpen] = useState(false)
+    const [alertMsg, setAlertMsg] =useState("")
+    const alertRef = useRef<HTMLDivElement | null>(null)
+
+
+    useEffect(() => {
+        if(state.succeeded) {
+            
+            const drawerTimer = setTimeout(() => {
+                setDrawerOpen(false)
+                
+                setTimeout(() => {
+                    setAlertMsg("Thanks for taking your time! you response has been submitted successfully. I'll reach out to you as soon as possible :)")
+                    gsap.fromTo(alertRef.current,
+                        { y: -80, opacity: 0 },
+                        { y: 0, opacity: 0.9, duration: 0.5, ease: "power3.out" }
+                    )
+
+                    setTimeout(() => {
+                        gsap.to(alertRef.current, {
+                            y: -80,
+                            opacity: 0,
+                            duration: 0.5,
+                            ease: "power3.in",
+                            onComplete: () => setAlertMsg("")
+                        })
+                    }, 3000)
+                }, 600)
+            }, 1500)
+
+            return () => clearTimeout(drawerTimer)
+        }
+    }, [state.succeeded])
+
+    useEffect(() => {
+        if(!drawerOpen && state.succeeded) {
+            state.succeeded = false
+            const form = document.querySelector("form") as HTMLFormElement
+            if(form) form.reset
+        }
+    }, [drawerOpen])
 
     return (
         <div>
-                <Drawer>
+            {alertMsg && (
+                <div
+                    ref={alertRef}
+                    className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[rgb(0_21_36)] text-white p-3 rounded-md shadow-lg z-50 opacity-90 backdrop-blur-sm"
+                >
+                    <h1 className="text-xl font-semibold text-white">{alertMsg}</h1>
+                </div>
+            )}
+                <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
                     <DrawerTrigger asChild>
                         <Button
                             variant="outline"
@@ -43,41 +96,62 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                             <DrawerDescription className="text-1xl text-[rgb(200,210,220)]">Please fill in your details and message if you'd like to work with me. I'll get back to you. :)</DrawerDescription>
                         </DrawerHeader>
 
-                        <div className="flex flex-col justify-center items-center p-10 gap-3 text-white">
+                        <form
+                            className="flex flex-col justify-center items-center p-10 gap-3 text-white"
+                            onSubmit={handleSubmit}
+                        >
                             <input
+                                id="name"
                                 type="text"
+                                name="name"
                                 placeholder="Name"
                                 className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 pl-5"
                             />
+
                             <input
-                                type="text"
+                                id="email"
+                                type="email"
+                                name="email"
                                 placeholder="E-Mail"
                                 className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 pl-5"
+                                required
                             />
+                            <ValidationError prefix="Email" field="email" errors={state.errors} />
+
                             <textarea
+                                id="message"
+                                name="message"
                                 placeholder="Your Message"
                                 rows={4}
                                 className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 mt-[2%] pl-5"
+                                required
                             />
-                        </div>
+                            <ValidationError prefix="message" field="message" errors={state.errors} />
+                        
 
-                        <DrawerFooter className="pl-[6%] pr-[6%] flex flex-row w-full h-full justify-between items-center">
-                            <Button
-                                variant="secondary"
-                                className="cursor-pointer"
-                            >
-                                <PaperPlaneTilt size={32} weight="fill" />
-                                <span className="font-extrabold">Send</span>
-                            </Button>
-                            <DrawerClose asChild>
+                            <DrawerFooter className="pl-[3%] pr-[3%] flex flex-row w-full h-full justify-between items-center">
                                 <Button
-                                    variant="destructive"
-                                    className="cursor-pointer"
+                                    type="submit"
+                                    variant="secondary"
+                                    className={`cursor-pointer transition-all duration-300 ${
+                                        state.succeeded ? "bg-green-600 hover:bg-green-700" : ""
+                                    }`}
+                                    disabled={state.submitting}
                                 >
-                                    <span className="font-extrabold text-white">Cancel</span>
+                                    <PaperPlaneTilt size={32} weight="fill" />
+                                    <span className="font-extrabold">{state.submitting ? "Sending..." : state.succeeded ? "Sent!" : "Send"}</span>
                                 </Button>
-                            </DrawerClose>
-                        </DrawerFooter>
+
+                                <DrawerClose asChild>
+                                    <Button
+                                        variant="destructive"
+                                        className="cursor-pointer"
+                                    >
+                                        <span className="font-extrabold text-white">Cancel</span>
+                                    </Button>
+                                </DrawerClose>
+                            </DrawerFooter>
+                        </form>
                     </DrawerContent>
                 </Drawer>
         </div>

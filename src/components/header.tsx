@@ -62,7 +62,7 @@ export default function Header() {
     return (
         <header
             ref={headerRef}
-            className={`fixed top-0 left-0 w-full z-50 bg-[rgb(53_211_153)] overflow-hidden pl-[10%] pr-[10%]`}
+            className="fixed top-0 left-0 w-full z-50 bg-[rgb(53_211_153)]/90 backdrop-blur-md overflow-hidden pl-[10%] pr-[10%]"
             style={{ height: "3vh", opacity: 1 }}
         >
             {showContent && (
@@ -74,7 +74,7 @@ export default function Header() {
                                     <a href={href} className="relative z-10 text-4xl text-[rgb(0_21_36)] font-extrabold transition-colors duration-300 group-hover:text-white px-4 py-2 block">
                                         {label}
                                     </a>
-                                    <span className="absolute inset-0 bg-[rgb(0_21_36)] z-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                                    <span className="absolute top-2 bottom-0 left-2 right-2 m-0.5 bg-[rgb(0_21_36)] z-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
                                 </li>
                             ))}
                         </ul>
