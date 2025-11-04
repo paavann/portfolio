@@ -7,7 +7,7 @@ import ContactMeButton from "./contactButton"
 const navHeaderItems = [
     { label: "about", href: "#about" },
     { label: "projects", href: "#projects" },
-    { label: "blog", href: "#blog" },
+    { label: "blogs", href: "#blog" },
 ]
 
 export default function Header() {

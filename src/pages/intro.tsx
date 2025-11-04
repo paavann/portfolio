@@ -3,7 +3,7 @@ import ContactMeButton from "@/components/contactButton"
 const navItems = [
     { label: "about", href: "#about" },
     { label: "projects", href: "#projects" },
-    { label: "blog", href: "#blog" },
+    { label: "blogs", href: "#blog" },
 ]
 
 export default function Intro() {
