@@ -1,0 +1,12 @@
+{
+    "name": "pavan",
+    "private": true,
+    "workspaces": [
+        "apps/*"
+    ],
+    "scripts": {
+        "dev": "pnpm run -r --parallel --aggregate-output dev",
+        "dev:frontend": "pnpm --filter @pavan/frontend dev",
+        "dev:blog_function": "pnpm --filter @pavan/blog_function dev"
+    }
+}
