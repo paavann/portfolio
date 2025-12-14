@@ -1,0 +1,1 @@
+export type Handler = (request: Request, env: Env) => Promise<Response>

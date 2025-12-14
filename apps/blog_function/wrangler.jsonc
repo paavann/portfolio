@@ -12,11 +12,16 @@
 	},
 	"d1_databases": [
 		{
-			"binding": "blogs_db",
-			"database_name": "blogs_db",
+			"binding": "DB",
+			"database_name": "DB",
 			"database_id": "add9bef9-f00c-4e44-8111-ebde793f8e1b"
 		}
-	]
+	],
+	"vars": {
+		"CLOUDFLARE_ACCESS_AUD": "f06102a8a244f7f742ea2d4f1db41132f329be09700aedb47243a350c85f9a1b",
+		"CLOUDFLARE_ACCESS_JWK_URL": "https://pavan-admindash.cloudflareaccess.com/cdn-cgi/access/certs"
+	},
+
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
