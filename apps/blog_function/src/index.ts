@@ -7,7 +7,7 @@ export default {
 		const url = new URL(request.url)
 		const { pathname } = url
 
-		if(pathname==="api/admin/blogs" && request.method==="GET")
+		if(pathname==="/api/admin/blogs" && request.method==="GET")
 			return getBlogsController(request, env)
 
 		return new Response(
