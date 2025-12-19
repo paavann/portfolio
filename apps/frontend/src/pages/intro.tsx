@@ -29,7 +29,7 @@ export default function Intro() {
 
             <div className="h-[-webkit-fill-available] flex justify-center items-end">
                 <h1 className="font-extrabold text-5xl w-[60%]">
-                    Hey there! I'm Pavan. I'm a professional Web Developer. Scroll to get to know more about Me!
+                    Hey there! I'm Pavan. I'm a professional Full Stack Developer. Scroll to get to know more about Me!
                 </h1>
             </div>
         </div>
