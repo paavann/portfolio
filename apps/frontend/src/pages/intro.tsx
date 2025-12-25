@@ -3,7 +3,7 @@ import ContactMeButton from "@/components/contactButton"
 const navItems = [
     { label: "about", href: "#about" },
     { label: "projects", href: "#projects" },
-    { label: "blogs", href: "#blog" },
+    { label: "blogs", href: "#blogs" },
 ]
 
 export default function Intro() {
@@ -27,7 +27,7 @@ export default function Intro() {
                 <ContactMeButton paddingTxt="11.5%" />
             </div>
 
-            <div className="h-[-webkit-fill-available] flex justify-center items-end">
+            <div className="h-[-webkit-fill-available] flex justify-center items-center">
                 <h1 className="font-extrabold text-5xl w-[60%]">
                     Hey there! I'm Pavan. I'm a professional Full Stack Developer. Scroll to get to know more about Me!
                 </h1>
