@@ -1,12 +1,14 @@
 {
     "name": "pavan",
     "private": true,
-    "workspaces": [
-        "apps/*"
-    ],
+    "version": "0.0.0",
     "scripts": {
-        "dev": "pnpm run -r --parallel --aggregate-output dev",
+        "dev": "pnpm -r --parallel --aggregate-output dev",
         "dev:frontend": "pnpm --filter @pavan/frontend dev",
-        "dev:blog_function": "pnpm --filter @pavan/blog_function dev"
+        "dev:blog_function": "pnpm --filter @pavan/blog_function dev",
+        "build": "pnpm -r build",
+        "lint": "pnpm -r lint",
+        "test": "pnpm -r test",
+        "typecheck": "pnpm -r --parallel typecheck"
     }
 }

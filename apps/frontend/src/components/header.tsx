@@ -22,7 +22,7 @@ export default function Header() {
         const onScroll = () => {
             const scrollY = window.scrollY
 
-            if(scrollY > 200 && !isExpanded) {
+            if (scrollY > 200 && !isExpanded) {
                 tl.clear()
                 tl.to(headerRef.current, {
                     opacity: 0,
@@ -41,7 +41,7 @@ export default function Header() {
                     })
 
                 setIsExpanded(true)
-            } else if(scrollY < 200 && isExpanded) {
+            } else if (scrollY < 200 && isExpanded) {
                 tl.to(headerRef.current, {
                     opacity: 1,
                     y: 0,
@@ -57,6 +57,7 @@ export default function Header() {
 
         window.addEventListener("scroll", onScroll)
         return () => window.removeEventListener("scroll", onScroll)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isExpanded])
 
     return (

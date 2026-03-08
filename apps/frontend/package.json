@@ -26,6 +26,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
+    "@pavan/eslint-config": "workspace:*",
+    "@pavan/typescript-config": "workspace:*",
     "@tailwindcss/vite": "^4.1.11",
     "@types/node": "^24.2.0",
     "@types/react": "^19.1.8",

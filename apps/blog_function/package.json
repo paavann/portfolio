@@ -7,11 +7,18 @@
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"lint": "eslint .",
+		"typecheck": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.19",
-		"typescript": "^5.5.2",
+		"@eslint/js": "^9.30.1",
+		"@pavan/eslint-config": "workspace:*",
+		"@pavan/typescript-config": "workspace:*",
+		"eslint": "^9.30.1",
+		"typescript": "~5.8.3",
+		"typescript-eslint": "^8.35.1",
 		"vitest": "~3.2.0",
 		"wrangler": "^4.45.4"
 	}

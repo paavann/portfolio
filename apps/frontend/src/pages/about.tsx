@@ -1,4 +1,4 @@
-import placeholder from "../assets/placeholder.avif"
+import placeholder from "../assets/profilePicture.jpg"
 
 export default function About() {
 
