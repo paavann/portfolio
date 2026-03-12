@@ -10,18 +10,15 @@
 	"observability": {
 		"enabled": true
 	},
-	"d1_databases": [
+	"kv_namespaces": [
 		{
-			"binding": "DB",
-			"database_name": "DB",
-			"database_id": "add9bef9-f00c-4e44-8111-ebde793f8e1b"
+			"binding": "KV",
+			"id": "10a955b278fc429896dcff7bdd8c982e",
 		}
 	],
 	"vars": {
-		"CLOUDFLARE_ACCESS_AUD": "f06102a8a244f7f742ea2d4f1db41132f329be09700aedb47243a350c85f9a1b",
-		"CLOUDFLARE_ACCESS_JWK_URL": "https://pavan-admindash.cloudflareaccess.com/cdn-cgi/access/certs"
+		"NOTION_BLOGS_DB_ID": "321ef3976f1c80168595e506130f4f31",
 	},
-
 	/**
 	 * Smart Placement
 	 * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

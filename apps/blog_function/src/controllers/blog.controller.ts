@@ -1,37 +1,68 @@
-import { withAuth } from "../auth"
-import { getBlogs } from "../services/blog.service"
+import { getPublishedBlogs, getPublishedBlogBySlug } from "../services/notion.service"
+import { Handler } from "../types/handler"
+
+const LIST_TTL = 60 * 10
+const POST_TTL = 60 * 10
+
+function jsonResponse(data: unknown, status = 200): Response {
+    return new Response(JSON.stringify(data), {
+        status, headers: { "Content-Type": "application/json" },
+    })
+}
+
+function errorResponse(message: string, status: number): Response {
+    return jsonResponse({ ok: false, error: message }, status)
+}
 
 
-
-export const getBlogsController = withAuth(async (request: Request, env: Env) => {
+//GET /api/blogs
+export const getBlogsController: Handler = async (request, env) => {
     const url = new URL(request.url)
+    const limit = Math.min(Math.max(Number(url.searchParams.get("limit") ?? "10"), 1), 50)
+    const cursor = url.searchParams.get("cursor") ?? undefined
 
-    const limit = Math.min(Number(url.searchParams.get("limit") ?? "20"), 100)
-    const offset = Math.max(Number(url.searchParams.get("offset") ?? "0"), 0)
-
-    const publishedParam = url.searchParams.get("published")
-    let published: boolean | undefined
-    if(publishedParam === "true") published = true
-    else if(publishedParam === "false") published = false
-
-    const fromParam = url.searchParams.get("from")
-    const toParam = url.searchParams.get("to")
-    const from = fromParam ? new Date(fromParam) : undefined
-    const to = toParam ? new Date(toParam) : undefined
-
-    if((from&&isNaN(from.getTime())) || (to&&isNaN(to.getTime()))) {
-        return new Response(
-            JSON.stringify({ error: "invalid 'from' or 'to' date." }),
-            { status: 400, headers: { "Content-Type": "application/json" } },
-        )
+    const cacheKey = `blogs:list:${limit}:${cursor ?? "start"}`
+    try {
+        const cached = await env.KV.get(cacheKey)
+        if (cached) {
+            return jsonResponse({ ok: true, cached: true, ...JSON.parse(cached) })
+        } else {
+            const result = await getPublishedBlogs(env, limit, cursor)
+            await env.KV.put(cacheKey, JSON.stringify(result), { expirationTtl: LIST_TTL })
+            return jsonResponse({ ok: true, cached: false, ...result })
+        }
+    } catch (err) {
+        console.error("getBlogsController error:", err)
+        return errorResponse("failed to fetch blogs.", 500)
     }
-    if(to) to.setHours(23, 59, 59, 999)
-    
-    const { blogs, total } = await getBlogs(
-        env.DB, { limit, offset, published, from, to }
-    )
-    return new Response(
-        JSON.stringify({  ok: true, total, blogs, limit, offset, }),
-        { status: 200, headers: { "Content-Type": "application/json" } },
-    )
-})
+}
+
+
+//GET /api/blogs/:slug
+export const getBlogBySlugController: Handler = async (request, env) => {
+    const url = new URL(request.url)
+    const slug = url.pathname.split("/").pop()
+
+    if (!slug) {
+        return errorResponse("slug is required.", 400)
+    } else {
+        const cacheKey = `blogs:post:${slug}`
+        try {
+            const cached = await env.KV.get(cacheKey)
+            if (cached) {
+                return jsonResponse({ ok: true, cached: true, blog: JSON.parse(cached) })
+            } else {
+                const blog = await getPublishedBlogBySlug(env, slug)
+                if (!blog) {
+                    return errorResponse("blog not found.", 404)
+                } else {
+                    await env.KV.put(cacheKey, JSON.stringify(blog), { expirationTtl: POST_TTL })
+                    return jsonResponse({ ok: true, cached: false, blog })
+                }
+            }
+        } catch (err) {
+            console.error("getBlogBySlugController error:", err)
+            return errorResponse("failed to fetch blog.", 500)
+        }
+    }
+}

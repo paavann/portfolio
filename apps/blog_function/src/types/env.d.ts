@@ -1,5 +1,5 @@
 interface Env {
-    DB: D1Database
-    CLOUDFLARE_ACCESS_JWK_URL: string
-    CLOUDFLARE_ACCESS_AUD: string
+    KV: KVNamespace
+    NOTION_API_KEY: string
+    NOTION_BLOGS_DB_ID: string
 }
