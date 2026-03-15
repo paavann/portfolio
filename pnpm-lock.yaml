@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  apps/blog_function:
+  apps/api:
     devDependencies:
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.8.19
@@ -38,7 +38,7 @@ importers:
         specifier: ^4.45.4
         version: 4.53.0
 
-  apps/frontend:
+  apps/portfolio:
     dependencies:
       '@formspree/react':
         specifier: ^3.0.0

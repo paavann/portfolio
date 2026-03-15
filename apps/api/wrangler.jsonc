@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "shrill-snow-782b",
+	"name": "portfolio-api",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-11-05",
 	"observability": {
