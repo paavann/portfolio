@@ -13,11 +13,11 @@ describe('API Routing & Handlers', () => {
 		expect(await response.json()).toEqual({ ok: false, error: "not found." });
 	});
 
-	it('responds with 400 when missing slug parameter for /api/blogs/', async () => {
-		const request = new IncomingRequest('http://example.com/api/blogs/')
+	it('responds with 404 for deeply nested invalid routes', async () => {
+		const request = new IncomingRequest('http://example.com/api/blogs/my-slug/extra-segment')
 		const response = await worker.fetch(request, env)
 
-		expect(response.status).toBe(400);
-		expect(await response.json()).toEqual({ ok: false, error: "slug is required." });
+		expect(response.status).toBe(404);
+		expect(await response.json()).toEqual({ ok: false, error: "not found." });
 	});
 });

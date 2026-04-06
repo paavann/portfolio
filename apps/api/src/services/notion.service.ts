@@ -6,6 +6,8 @@ import { transformPageToMeta, notionHeaders, NotionApiError } from "../utils/not
 
 const NOTION_BASE = "https://api.notion.com/v1"
 
+
+
 const fetchAllBlocks = async (pageId: string, apiKey: string): Promise<NotionBlock[]> => {
     const blocks: NotionBlock[] = []
     let cursor: string | null = null
@@ -21,12 +23,13 @@ const fetchAllBlocks = async (pageId: string, apiKey: string): Promise<NotionBlo
         } else {
             const data = await res.json() as NotionBlocksResponse
             blocks.push(...data.results)
-            cursor = data.hasMore ? data.nextCursor : null
+            cursor = data.has_more ? data.next_cursor : null
         }
     } while (cursor)
 
     return blocks
 }
+
 
 
 export async function getPublishedBlogs(env: Env, limit: number, cursor?: string): Promise<{ blogs: BlogMeta[]; hasMore: boolean; nextCursor: string | null }> {
@@ -51,10 +54,11 @@ export async function getPublishedBlogs(env: Env, limit: number, cursor?: string
         const data = await res.json() as NotionQueryResponse
         const blogs = data.results.map(transformPageToMeta)
         return {
-            blogs, hasMore: data.hasMore, nextCursor: data.nextCursor,
+            blogs, hasMore: data.has_more, nextCursor: data.next_cursor,
         }
     }
 }
+
 
 
 export async function getPublishedBlogBySlug(env: Env, slug: string): Promise<BlogPost | null> {

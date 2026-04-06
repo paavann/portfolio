@@ -1,5 +1,8 @@
 import type { BlogMeta, NotionPage, NotionPropertyValue } from "../types/notion.types"
 
+
+
+
 const NOTION_VER = "2022-06-28"
 export const notionHeaders = (apiKey: string): HeadersInit => {
     return {
@@ -16,14 +19,15 @@ const extractText = (prop: NotionPropertyValue | undefined): string => {
     } else {
         switch (prop.type) {
             case "title":
-                return prop.title.map(t => t.plainText).join("")
+                return prop.title.map(t => t.plain_text).join("")
             case "rich_text":
-                return prop.rich_text.map(r => r.plainText).join("")
+                return prop.rich_text.map(r => r.plain_text).join("")
             default:
                 return ""
         }
     }
 }
+
 
 const extractMultiSelect = (prop: NotionPropertyValue | undefined): string[] => {
     if (!prop || prop.type !== "multi_select") {
@@ -33,6 +37,7 @@ const extractMultiSelect = (prop: NotionPropertyValue | undefined): string[] => 
     }
 }
 
+
 const extractDate = (prop: NotionPropertyValue | undefined): string | null => {
     if (!prop || prop.type !== "date") {
         return null
@@ -41,6 +46,7 @@ const extractDate = (prop: NotionPropertyValue | undefined): string | null => {
     }
 }
 
+
 const extractFile = (prop: NotionPropertyValue | undefined): string | null => {
     if (!prop || prop.type !== "files") {
         return null
@@ -48,15 +54,19 @@ const extractFile = (prop: NotionPropertyValue | undefined): string | null => {
         const file = prop.files[0]
         if (!file) {
             return null
-        } else if (file.type === "external") {
-            return file.external?.url ?? null
-        } else if (file.type === "file") {
-            return file.file?.url ?? null
         } else {
-            return null
+            switch (file.type) {
+                case "external":
+                    return file.external?.url ?? null
+                case "file":
+                    return file.file?.url ?? null
+                default:
+                    return null
+            }
         }
     }
 }
+
 
 export const transformPageToMeta = (page: NotionPage): BlogMeta => {
     const p = page.properties

@@ -1,4 +1,6 @@
 import { getBlogs, getBlogBySlug, } from "./controllers/blog.controller"
+import { jsonResponse } from "./utils/res.utils"
+
 
 
 export default {
@@ -6,14 +8,17 @@ export default {
 		const url = new URL(request.url)
 		const { pathname } = url
 
-		if (pathname === "/api/blogs" && request.method === "GET") {
+		const blogListRegex = /^\/api\/blogs\/?$/
+		const blogPostRegex = /^\/api\/blogs\/([^\/]+)\/?$/
+
+		const isGet = request.method === "GET"
+		if (isGet && blogListRegex.test(pathname)) {
 			return getBlogs(request, env)
-		} else if (pathname.startsWith("/api/blogs/") && request.method === "GET") {
+		} else if (isGet && blogPostRegex.test(pathname)) {
 			return getBlogBySlug(request, env)
 		} else {
-			return new Response(
-				JSON.stringify({ ok: false, error: "not found.", }),
-				{ status: 404, headers: { "Content-Type": "application/json", }, },
+			return jsonResponse(
+				{ ok: false, error: "not found.", }, 404,
 			)
 		}
 	},

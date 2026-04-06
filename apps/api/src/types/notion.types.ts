@@ -1,5 +1,5 @@
 export interface NotionRichText {
-    plainText: string
+    plain_text: string
     href?: string | null
     annotations: {
         bold: boolean
@@ -16,7 +16,7 @@ export interface NotionFile {
     external?: { url: string }
     file?: {
         url: string
-        expiryTime: string
+        expiry_time: string
     }
 }
 
@@ -43,8 +43,8 @@ export interface NotionPage {
 
 export interface NotionQueryResponse {
     results: NotionPage[]
-    hasMore: boolean
-    nextCursor: string | null
+    has_more: boolean
+    next_cursor: string | null
 }
 
 export type NotionBlockType =
@@ -67,14 +67,14 @@ export type NotionBlockType =
 export interface NotionBlock {
     id: string
     type: NotionBlockType
-    hasChildren: boolean
+    has_children: boolean
     [key: string]: unknown
 }
 
 export interface NotionBlocksResponse {
     results: NotionBlock[]
-    hasMore: boolean
-    nextCursor: string | null
+    has_more: boolean
+    next_cursor: string | null
 }
 
 export interface BlogMeta {
