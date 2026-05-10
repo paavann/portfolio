@@ -1,3 +1,4 @@
 *node_modules
 *.env
 apps/api/.wrangler
+apps/api/.dev.vars

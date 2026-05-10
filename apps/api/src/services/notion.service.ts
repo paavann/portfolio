@@ -34,7 +34,7 @@ const fetchAllBlocks = async (pageId: string, apiKey: string): Promise<NotionBlo
 
 export async function getPublishedBlogs(env: Env, limit: number, cursor?: string): Promise<{ blogs: BlogMeta[]; hasMore: boolean; nextCursor: string | null }> {
     const body: Record<string, unknown> = {
-        filter: { property: "Status", select: { equals: "published", } },
+        filter: { property: "Status", status: { equals: "published", } },
         sorts: [{ property: "Published At", direction: "descending", }],
         page_size: limit,
     }
@@ -68,8 +68,8 @@ export async function getPublishedBlogBySlug(env: Env, slug: string): Promise<Bl
         body: JSON.stringify({
             filter: {
                 and: [
-                    { property: "Slug", rich_text: { equals: slug } },
-                    { property: "Status", select: { equals: "published" } },
+                    { property: "Slug", select: { equals: slug } },
+                    { property: "Status", status: { equals: "published" } },
                 ],
             },
             page_size: 1,

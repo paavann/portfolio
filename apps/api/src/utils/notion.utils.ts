@@ -22,6 +22,8 @@ const extractText = (prop: NotionPropertyValue | undefined): string => {
                 return prop.title.map(t => t.plain_text).join("")
             case "rich_text":
                 return prop.rich_text.map(r => r.plain_text).join("")
+            case "select":
+                return prop.select ? prop.select.name : ""
             default:
                 return ""
         }
