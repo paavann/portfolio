@@ -67,9 +67,9 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
             {alertMsg && (
                 <div
                     ref={alertRef}
-                    className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[rgb(0_21_36)] text-white p-3 rounded-md shadow-lg z-50 opacity-90 backdrop-blur-sm"
+                    className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[rgb(0_21_36)] text-white p-2 sm:p-3 rounded-md shadow-lg z-50 opacity-90 backdrop-blur-sm w-[90%] sm:w-auto max-w-lg"
                 >
-                    <h1 className="text-xl font-semibold text-white">{alertMsg}</h1>
+                    <h1 className="text-sm sm:text-lg lg:text-xl font-semibold text-white">{alertMsg}</h1>
                 </div>
             )}
             <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
@@ -77,28 +77,28 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                     <Button
                         variant="outline"
                         style={{ padding: paddingTxt || "2.5%" }}
-                        className=" relative overflow-hidden border-4 border-[rgb(0_21_36)] bg-transparent group cursor-pointer"
+                        className=" relative overflow-hidden border-3 sm:border-4 border-[rgb(0_21_36)] bg-transparent group cursor-pointer"
                     >
                         <span className="absolute top-0 bottom-0 left-0 right-0 bg-[rgb(0_21_36)] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-0" />
                         <span
-                            className="relative z-10 text-3xl text-[rgb(0_21_36)] font-extrabold group-hover:text-white self-center mb-1"
+                            className="relative z-10 text-xl sm:text-2xl lg:text-3xl text-[rgb(0_21_36)] font-extrabold group-hover:text-white self-center mb-1"
                         >
                             contact me
                         </span>
                     </Button>
                 </DrawerTrigger>
 
-                <DrawerContent className="w-[70%] justify-self-center bg-[rgb(0_21_36)]">
+                <DrawerContent className="w-[95%] sm:w-[85%] lg:w-[70%] justify-self-center bg-[rgb(0_21_36)]">
                     <DrawerHeader>
                         <DrawerTitle className="flex justify-center items-center gap-2">
-                            <Envelope size={45} color="white" />
-                            <span className="text-4xl font-extrabold text-white mb-[0.5%]">Contact me</span>
+                            <Envelope size={32} className="sm:!w-[45px] sm:!h-[45px]" color="white" />
+                            <span className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-[0.5%]">Contact me</span>
                         </DrawerTitle>
-                        <DrawerDescription className="text-1xl text-[rgb(200,210,220)]">Please fill in your details and message if you'd like to work with me. I'll get back to you. :)</DrawerDescription>
+                        <DrawerDescription className="text-sm sm:text-base text-[rgb(200,210,220)]">Please fill in your details and message if you'd like to work with me. I'll get back to you. :)</DrawerDescription>
                     </DrawerHeader>
 
                     <form
-                        className="flex flex-col justify-center items-center p-10 gap-3 text-white"
+                        className="flex flex-col justify-center items-center p-4 sm:p-7 lg:p-10 gap-3 text-white"
                         onSubmit={handleSubmit}
                     >
                         <input
@@ -106,7 +106,7 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                             type="text"
                             name="name"
                             placeholder="Name"
-                            className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 pl-5"
+                            className="border p-2 rounded w-full sm:w-[95%] border-2 border-white placeholder-gray-300 pl-4 sm:pl-5 text-sm sm:text-base"
                         />
 
                         <input
@@ -114,7 +114,7 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                             type="email"
                             name="email"
                             placeholder="E-Mail"
-                            className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 pl-5"
+                            className="border p-2 rounded w-full sm:w-[95%] border-2 border-white placeholder-gray-300 pl-4 sm:pl-5 text-sm sm:text-base"
                             required
                         />
                         <ValidationError prefix="Email" field="email" errors={state.errors} />
@@ -124,7 +124,7 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                             name="message"
                             placeholder="Your Message"
                             rows={4}
-                            className="border p-2 rounded w-[95%] border-2 border-white placeholder-gray-300 mt-[2%] pl-5"
+                            className="border p-2 rounded w-full sm:w-[95%] border-2 border-white placeholder-gray-300 mt-[2%] pl-4 sm:pl-5 text-sm sm:text-base"
                             required
                         />
                         <ValidationError prefix="message" field="message" errors={state.errors} />
@@ -139,7 +139,7 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                                 disabled={state.submitting}
                             >
                                 <PaperPlaneTilt size={32} weight="fill" />
-                                <span className="font-extrabold">{state.submitting ? "Sending..." : state.succeeded ? "Sent!" : "Send"}</span>
+                                <span className="font-extrabold text-sm sm:text-base">{state.submitting ? "Sending..." : state.succeeded ? "Sent!" : "Send"}</span>
                             </Button>
 
                             <DrawerClose asChild>
@@ -147,7 +147,7 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                                     variant="destructive"
                                     className="cursor-pointer"
                                 >
-                                    <span className="font-extrabold text-white">Cancel</span>
+                                    <span className="font-extrabold text-white text-sm sm:text-base">Cancel</span>
                                 </Button>
                             </DrawerClose>
                         </DrawerFooter>

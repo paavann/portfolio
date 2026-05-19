@@ -13,19 +13,19 @@ function Home() {
     <>
       <Header />
 
-      <main id="intro" className="w-screen h-screen">
+      <main id="intro" className="w-screen min-h-screen overflow-x-hidden">
         <Intro />
       </main>
 
-      <section id="about" className="w-screen h-fit">
+      <section id="about" className="w-screen h-fit overflow-x-hidden">
         <About />
       </section>
 
-      <section id="projects" className="w-screen h-fit">
+      <section id="projects" className="w-screen h-fit overflow-x-hidden">
         <Projects projects={projects} />
       </section>
 
-      <section id="blogs" className="w-screen h-fit">
+      <section id="blogs" className="w-screen h-fit overflow-x-hidden">
         <Blogs />
       </section>
     </>

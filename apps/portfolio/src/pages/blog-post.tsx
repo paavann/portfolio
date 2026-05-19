@@ -24,33 +24,33 @@ export default function BlogPost() {
     }, [slug]);
 
     return (
-        <div className="w-screen min-h-screen bg-[rgb(0_21_36)] flex flex-col pt-[15vh]">
+        <div className="w-screen min-h-screen bg-[rgb(0_21_36)] flex flex-col pt-[15vh] overflow-x-hidden">
             <Header isBlogPage={true} />
             
-            <div className="w-full max-w-4xl mx-auto px-5 md:px-10 py-10 flex flex-col">
+            <div className="w-full max-w-4xl mx-auto px-4 sm:px-5 md:px-10 py-5 sm:py-10 flex flex-col">
                 {loading ? (
-                    <div className="text-white text-xl font-extrabold animate-pulse">Loading...</div>
+                    <div className="text-white text-lg sm:text-xl font-extrabold animate-pulse">Loading...</div>
                 ) : !blog ? (
-                    <div className="text-white text-xl font-extrabold">Blog not found.</div>
+                    <div className="text-white text-lg sm:text-xl font-extrabold">Blog not found.</div>
                 ) : (
-                    <article className="flex flex-col w-full pb-20">
+                    <article className="flex flex-col w-full pb-10 sm:pb-20">
                         {blog.cover && (
-                            <img src={blog.cover} alt="Cover" className="w-full h-64 md:h-96 object-cover rounded-2xl mb-10 shadow-lg border border-gray-800" />
+                            <img src={blog.cover} alt="Cover" className="w-full h-48 sm:h-64 md:h-96 object-cover rounded-xl sm:rounded-2xl mb-6 sm:mb-10 shadow-lg border border-gray-800" />
                         )}
                         
-                        <div className="flex flex-wrap gap-3 mb-6">
+                        <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
                             {blog.tags?.map(tag => (
-                                <span key={tag} className="bg-[rgb(53_211_153)] text-[rgb(0_21_36)] rounded-md px-4 py-1.5 text-sm font-extrabold">
+                                <span key={tag} className="bg-[rgb(53_211_153)] text-[rgb(0_21_36)] rounded-md px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-extrabold">
                                     {tag}
                                 </span>
                             ))}
                         </div>
 
-                        <h1 className="text-5xl md:text-6xl text-white font-extrabold mb-8 leading-tight tracking-tight">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-extrabold mb-5 sm:mb-8 leading-tight tracking-tight">
                             {blog.title}
                         </h1>
 
-                        <div className="text-gray-400 font-bold mb-12 pb-8 border-b border-gray-800 flex items-center gap-4">
+                        <div className="text-gray-400 font-bold mb-8 sm:mb-12 pb-5 sm:pb-8 border-b border-gray-800 flex items-center gap-4 text-sm sm:text-base">
                             <span>Published on {new Date(blog.publishedAt).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',

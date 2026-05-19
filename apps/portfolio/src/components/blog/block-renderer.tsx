@@ -34,24 +34,24 @@ function TextRenderer({ textArray }: { textArray: RichText[] }) {
 export function BlockRenderer({ block }: { block: NotionBlock }) {
     switch (block.type) {
         case "heading_1":
-            return <h1 className="text-4xl font-extrabold text-white mt-12 mb-6"><TextRenderer textArray={block.heading_1?.rich_text || []} /></h1>;
+            return <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mt-8 sm:mt-12 mb-4 sm:mb-6"><TextRenderer textArray={block.heading_1?.rich_text || []} /></h1>;
         case "heading_2":
-            return <h2 className="text-3xl font-extrabold text-white mt-10 mb-4"><TextRenderer textArray={block.heading_2?.rich_text || []} /></h2>;
+            return <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white mt-7 sm:mt-10 mb-3 sm:mb-4"><TextRenderer textArray={block.heading_2?.rich_text || []} /></h2>;
         case "heading_3":
-            return <h3 className="text-2xl font-bold text-white mt-8 mb-3"><TextRenderer textArray={block.heading_3?.rich_text || []} /></h3>;
+            return <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mt-5 sm:mt-8 mb-2 sm:mb-3"><TextRenderer textArray={block.heading_3?.rich_text || []} /></h3>;
         case "paragraph":
-            return <p className="text-lg text-gray-200 leading-relaxed mb-6 font-medium"><TextRenderer textArray={block.paragraph?.rich_text || []} /></p>;
+            return <p className="text-base sm:text-lg text-gray-200 leading-relaxed mb-4 sm:mb-6 font-medium"><TextRenderer textArray={block.paragraph?.rich_text || []} /></p>;
         case "bulleted_list_item":
-            return <li className="text-lg text-gray-200 ml-6 list-disc mb-2 font-medium"><TextRenderer textArray={block.bulleted_list_item?.rich_text || []} /></li>;
+            return <li className="text-base sm:text-lg text-gray-200 ml-4 sm:ml-6 list-disc mb-2 font-medium"><TextRenderer textArray={block.bulleted_list_item?.rich_text || []} /></li>;
         case "numbered_list_item":
-            return <li className="text-lg text-gray-200 ml-6 list-decimal mb-2 font-medium"><TextRenderer textArray={block.numbered_list_item?.rich_text || []} /></li>;
+            return <li className="text-base sm:text-lg text-gray-200 ml-4 sm:ml-6 list-decimal mb-2 font-medium"><TextRenderer textArray={block.numbered_list_item?.rich_text || []} /></li>;
         case "image":
             const imageUrl = block.image?.type === 'external' ? block.image.external?.url : block.image?.file?.url;
             return imageUrl ? (
-                <div className="my-10 w-full flex flex-col items-center">
-                    <img src={imageUrl} alt="Blog image" className="rounded-xl w-full object-cover max-h-[600px] border border-gray-800" />
+                <div className="my-6 sm:my-10 w-full flex flex-col items-center">
+                    <img src={imageUrl} alt="Blog image" className="rounded-lg sm:rounded-xl w-full object-cover max-h-[300px] sm:max-h-[450px] lg:max-h-[600px] border border-gray-800" />
                     {block.image?.caption && block.image.caption.length > 0 && (
-                        <p className="text-center text-sm text-gray-400 mt-3 italic">
+                        <p className="text-center text-xs sm:text-sm text-gray-400 mt-2 sm:mt-3 italic">
                             <TextRenderer textArray={block.image.caption} />
                         </p>
                     )}
@@ -59,8 +59,8 @@ export function BlockRenderer({ block }: { block: NotionBlock }) {
             ) : null;
         case "child_page":
             if (block.child_page?.title === "Original Draft Archive") return null;
-            return <div className="p-5 bg-gray-900 rounded-lg my-6 text-[rgb(53_211_153)] font-semibold border border-gray-800 flex items-center gap-3">
-                <span className="text-xl">↳</span> {block.child_page?.title}
+            return <div className="p-3 sm:p-5 bg-gray-900 rounded-lg my-4 sm:my-6 text-[rgb(53_211_153)] font-semibold border border-gray-800 flex items-center gap-2 sm:gap-3 text-sm sm:text-base">
+                <span className="text-lg sm:text-xl">↳</span> {block.child_page?.title}
             </div>;
         default:
             return null;
