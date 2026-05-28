@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "portfolio-api",
+	"name": "pavan-portfolio-api",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-11-05",
 	"observability": {
