@@ -10,7 +10,7 @@ describe('API Routing & Handlers', () => {
 		const response = await worker.fetch(request, env)
 
 		expect(response.status).toBe(404);
-		expect(await response.json()).toEqual({ ok: false, error: "not found." });
+		expect(await response.json()).toEqual({ ok: false, error: "requested route not found or method not allowed." });
 	});
 
 	it('responds with 404 for deeply nested invalid routes', async () => {
@@ -18,6 +18,6 @@ describe('API Routing & Handlers', () => {
 		const response = await worker.fetch(request, env)
 
 		expect(response.status).toBe(404);
-		expect(await response.json()).toEqual({ ok: false, error: "not found." });
+		expect(await response.json()).toEqual({ ok: false, error: "requested route not found or method not allowed." });
 	});
 });

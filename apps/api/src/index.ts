@@ -1,5 +1,5 @@
 import { getBlogs, getBlogBySlug, } from "./controllers/blog.controller"
-import { jsonResponse, corsPreflightResponse } from "./utils/res.utils"
+import { jsonResponse, corsPreflightResponse, } from "./utils/res.utils"
 
 
 

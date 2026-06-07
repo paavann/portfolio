@@ -11,7 +11,9 @@ const POST_TTL = 60 * 10
 //GET /api/blogs
 export const getBlogs: Handler = async (request, env) => {
     const url = new URL(request.url)
-    const limit = Math.min(Math.max(Number(url.searchParams.get("limit") ?? "10"), 1), 50)
+    let limit = Number(url.searchParams.get("limit") ?? "10")
+    if (isNaN(limit)) limit = 10
+    limit = Math.min(Math.max(limit, 1), 50)
     const cursor = url.searchParams.get("cursor") ?? undefined
 
     const cacheKey = `blogs:list:${limit}:${cursor ?? "start"}`
@@ -21,7 +23,7 @@ export const getBlogs: Handler = async (request, env) => {
             return jsonResponse({ ok: true, cached: true, ...JSON.parse(cached) })
         } else {
             const result = await getPublishedBlogs(env, limit, cursor)
-            await env.KV.put(cacheKey, JSON.stringify(result), { expirationTtl: LIST_TTL })
+            if (result.blogs.length > 0) await env.KV.put(cacheKey, JSON.stringify(result), { expirationTtl: LIST_TTL, })
             return jsonResponse({ ok: true, cached: false, ...result })
         }
     } catch (err) {
