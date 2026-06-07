@@ -22,7 +22,7 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 This repository is a **pnpm workspace monorepo** containing two applications and two shared configuration packages that together power a personal portfolio website with an integrated, Notion-backed blog system.
 
@@ -30,7 +30,7 @@ The **frontend** is a React SPA (Vite + Tailwind CSS v4) featuring sections for 
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```
                     ┌───────────────────────────────────┐
@@ -62,7 +62,7 @@ The **frontend** is a React SPA (Vite + Tailwind CSS v4) featuring sections for 
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 portfolio/
@@ -137,7 +137,7 @@ portfolio/
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend — `apps/portfolio`
 
@@ -182,7 +182,7 @@ portfolio/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -258,7 +258,7 @@ pnpm typecheck   # Type-check all workspaces
 
 ---
 
-## 🔌 API Reference
+## API Reference
 
 The Cloudflare Worker exposes two RESTful endpoints:
 
@@ -321,7 +321,7 @@ Returns a single blog post with full Notion block content.
 
 ---
 
-## 🤖 Blog Enhancement Workflow (n8n)
+## Blog Enhancement Workflow (n8n)
 
 An automated **n8n workflow** powers the blog publishing pipeline. It takes draft blog posts from Notion, enhances them with AI, and handles the full content lifecycle — including error recovery at every stage.
 
@@ -425,7 +425,7 @@ curl -X POST "https://your-n8n-instance.com/webhook/enhance-blog-trigger?page_id
 
 ---
 
-## 🎨 Frontend Features
+## Frontend Features
 
 ### Design Language
 - **Bold, monochromatic palette** — Dark navy (`rgb(0, 21, 36)`) + Light gray (`#F2F2F2`) + Emerald accent (`rgb(53, 211, 153)`)
@@ -446,7 +446,7 @@ curl -X POST "https://your-n8n-instance.com/webhook/enhance-blog-trigger?page_id
 
 ---
 
-## 🧩 Notion Block Renderer
+## Notion Block Renderer
 
 The frontend includes a custom `BlockRenderer` component that converts raw Notion API blocks into styled React JSX. Supported block types:
 
@@ -465,7 +465,7 @@ The frontend includes a custom `BlockRenderer` component that converts raw Notio
 
 ---
 
-## 📄 License
+## License
 
 This project is open source and available for reference and learning purposes.
 
