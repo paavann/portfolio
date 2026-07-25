@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { fetchBlogs } from "../lib/api";
 import type { Blog } from "../types/blog";
 import { Link } from "react-router-dom";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import Header from "../components/header";
+import { BlogCardSkeleton } from "@/components/ui/skeleton";
+import TiltCard from "@/components/TiltCard";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AllBlogs() {
     const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -11,6 +17,8 @@ export default function AllBlogs() {
     const [loadingMore, setLoadingMore] = useState(false);
     const [nextCursor, setNextCursor] = useState<string | null>(null);
     const [hasMore, setHasMore] = useState(false);
+
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -24,6 +32,29 @@ export default function AllBlogs() {
             setLoading(false);
         });
     }, []);
+
+    useEffect(() => {
+        if (loading || blogs.length === 0) return;
+        const ctx = gsap.context(() => {
+            gsap.fromTo(
+                ".all-blog-card",
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.1,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 85%",
+                        once: true,
+                    }
+                }
+            );
+        }, containerRef);
+        return () => ctx.revert();
+    }, [loading, blogs]);
 
     const loadMore = () => {
         if (!nextCursor || loadingMore) return;
@@ -45,29 +76,37 @@ export default function AllBlogs() {
             
             <div className="w-full p-5 sm:p-7 lg:p-10 flex flex-col gap-7 sm:gap-10">
                 <div className="p-3 sm:p-5 h-fit w-full gap-4 sm:gap-7 flex flex-col">
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl text-white font-extrabold">all blogs.</h1>
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl text-white font-black">all blogs.</h1>
                 </div>
 
                 {loading ? (
-                    <div className="text-white px-3 sm:px-5 text-lg sm:text-xl font-extrabold">Loading...</div>
-                ) : (
                     <div className="w-full flex flex-wrap gap-5 sm:gap-7 lg:gap-10 px-2 sm:px-5">
+                        <BlogCardSkeleton />
+                        <BlogCardSkeleton />
+                        <BlogCardSkeleton />
+                        <BlogCardSkeleton />
+                        <BlogCardSkeleton />
+                        <BlogCardSkeleton />
+                    </div>
+                ) : (
+                    <div ref={containerRef} className="w-full flex flex-wrap gap-5 sm:gap-7 lg:gap-10 px-2 sm:px-5">
                         {blogs.map((blog) => (
                             <Link to={`/blogs/${blog.slug}`} key={blog.id} className="w-full md:w-[45%] lg:w-[30%]">
-                                <Card className="h-full border-[#F2F2F2] border-4 sm:border-5 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:border-[#35D399] py-0 bg-transparent group flex flex-col justify-between">
-                                    <div>
-                                        <CardHeader className="flex flex-col gap-2 p-4 sm:p-5">
-                                            <h2 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-[rgb(53_211_153)] transition-colors">
-                                                {blog.title}
-                                            </h2>
-                                            <span className="text-xs sm:text-sm text-gray-300 font-bold">
-                                                {new Date(blog.publishedAt).toLocaleDateString('en-US', {
-                                                    year: 'numeric',
-                                                    month: 'long',
-                                                    day: 'numeric'
-                                                })}
-                                            </span>
-                                        </CardHeader>
+                                <TiltCard className="all-blog-card h-full w-full opacity-0">
+                                    <Card className="h-full w-full border-[#F2F2F2] border-4 sm:border-5 cursor-pointer hover:border-[rgb(53_211_153)] py-0 bg-transparent group flex flex-col justify-between transition-colors duration-300">
+                                        <div>
+                                            <CardHeader className="flex flex-col gap-2 p-4 sm:p-5">
+                                                <h2 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-[rgb(53_211_153)] transition-colors">
+                                                    {blog.title}
+                                                </h2>
+                                                <span className="text-xs sm:text-sm text-gray-300 font-semibold">
+                                                    {new Date(blog.publishedAt).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric'
+                                                    })}
+                                                </span>
+                                            </CardHeader>
                                         
                                         <CardContent className="flex flex-col pl-4 pr-4 pb-4 sm:pl-5 sm:pr-5 sm:pb-5">
                                             <p className="text-sm sm:text-md font-medium text-gray-200 line-clamp-3">
@@ -76,14 +115,15 @@ export default function AllBlogs() {
                                         </CardContent>
                                     </div>
 
-                                    <CardContent className="h-fit flex bg-white group-hover:bg-[rgb(53_211_153)] transition-colors duration-300 p-2 sm:p-3 mb-0 flex-row flex-wrap gap-2 mt-auto rounded-b-[calc(var(--radius)-4px)]">
-                                        {blog.tags?.map((tag) => (
-                                            <div key={tag} className="bg-[rgb(0_21_36)] rounded-md p-1 px-2 sm:px-3 w-fit">
-                                                <h3 className="self-center text-white text-xs font-extrabold">{tag}</h3>
-                                            </div>
-                                        ))}
-                                    </CardContent>
-                                </Card>
+                                        <CardContent className="h-fit flex bg-white group-hover:bg-[rgb(53_211_153)] transition-colors duration-300 p-2 sm:p-3 mb-0 flex-row flex-wrap gap-2 mt-auto rounded-b-[calc(var(--radius)-4px)]">
+                                            {blog.tags?.map((tag) => (
+                                                <div key={tag} className="bg-[rgb(0_21_36)] rounded-md p-1 px-2 sm:px-3 w-fit">
+                                                    <h3 className="self-center text-white text-xs font-extrabold">{tag}</h3>
+                                                </div>
+                                            ))}
+                                        </CardContent>
+                                    </Card>
+                                </TiltCard>
                             </Link>
                         ))}
                     </div>

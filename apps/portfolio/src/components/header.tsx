@@ -3,6 +3,7 @@ import { gsap } from "gsap"
 import ContactMeButton from "./contactButton"
 import { Link } from "react-router-dom"
 import { List, X } from "phosphor-react"
+import MagneticWrap from "@/components/MagneticWrap"
 
 const navHeaderItems = [
     { label: "about", href: "/#about" },
@@ -12,21 +13,22 @@ const navHeaderItems = [
 
 export default function Header({ isBlogPage = false }: { isBlogPage?: boolean }) {
     const headerRef = useRef<HTMLElement | null>(null)
+    const tlRef = useRef<gsap.core.Timeline | null>(null)
 
     const [isExpanded, setIsExpanded] = useState(isBlogPage)
     const [showContent, setShowContent] = useState(isBlogPage)
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    const tl = gsap.timeline()
 
     useEffect(() => {
-        if (isBlogPage) return; // Disable scroll animation on blog pages
+        if (isBlogPage) return;
 
         const onScroll = () => {
             const scrollY = window.scrollY
 
             if (scrollY > 200 && !isExpanded) {
-                tl.clear()
-                tl.to(headerRef.current, {
+                if (!tlRef.current) tlRef.current = gsap.timeline()
+                tlRef.current.clear()
+                tlRef.current.to(headerRef.current, {
                     opacity: 0,
                     y: -50,
                     height: 0,
@@ -44,7 +46,9 @@ export default function Header({ isBlogPage = false }: { isBlogPage?: boolean })
 
                 setIsExpanded(true)
             } else if (scrollY < 200 && isExpanded) {
-                tl.to(headerRef.current, {
+                if (!tlRef.current) tlRef.current = gsap.timeline()
+                tlRef.current.clear()
+                tlRef.current.to(headerRef.current, {
                     opacity: 1,
                     y: 0,
                     height: "3vh",
@@ -63,7 +67,6 @@ export default function Header({ isBlogPage = false }: { isBlogPage?: boolean })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isExpanded, isBlogPage])
 
-    // Close mobile menu when clicking a nav link
     const handleNavClick = () => {
         setMobileMenuOpen(false)
     }
@@ -72,49 +75,63 @@ export default function Header({ isBlogPage = false }: { isBlogPage?: boolean })
         <>
             <header
                 ref={headerRef}
-                className="fixed top-0 left-0 w-full z-50 bg-[rgb(53_211_153)]/90 backdrop-blur-md overflow-hidden px-3 sm:px-5"
-                style={{ height: isBlogPage ? "13vh" : "3vh", opacity: 1 }}
+                className="fixed top-0 left-0 w-full z-50 overflow-hidden px-3 sm:px-5"
+                style={{ 
+                    height: isBlogPage ? "13vh" : "3vh", 
+                    opacity: 1,
+                    background: 'rgba(53, 211, 153, 0.12)',
+                    backdropFilter: 'blur(20px) saturate(180%)',
+                    borderBottom: '1px solid rgba(53, 211, 153, 0.2)'
+                }}
             >
                 {showContent && (
                     <div className="h-full w-full flex items-center justify-between lg:justify-start">
-                        {/* Logo / Brand */}
                         <div className="lg:w-[20%]">
                             {!isBlogPage && (
                                 <Link to="/">
-                                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[rgb(0_21_36)] cursor-pointer">Pavan.</h1>
+                                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[rgb(0_21_36)] cursor-pointer">Pavan.</h1>
                                 </Link>
                             )}
                         </div>
 
-                        {/* Desktop nav — hidden below lg */}
                         <nav className="hidden lg:block h-full w-[60%]">
                             <ul className="flex flex-row justify-start gap-7 h-full w-full">
                                 {isBlogPage ? (
-                                    <li className="group relative overflow-hidden self-center cursor-pointer">
-                                        <Link to="/" className="relative z-10 text-3xl text-[rgb(0_21_36)] font-extrabold transition-colors duration-300 group-hover:text-white px-4 py-2 block">
-                                            Back to Home
-                                        </Link>
-                                        <span className="absolute top-2 bottom-0 left-2 right-2 m-0.5 bg-[rgb(0_21_36)] z-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                                    <li className="self-center">
+                                        <MagneticWrap>
+                                            <div className="group relative overflow-hidden cursor-pointer">
+                                                <Link to="/" className="relative z-10 text-3xl text-[rgb(0_21_36)] font-extrabold transition-colors duration-300 group-hover:text-white px-4 py-2 block">
+                                                    Back to Home
+                                                </Link>
+                                                <span className="absolute top-2 bottom-0 left-2 right-2 m-0.5 bg-[rgb(0_21_36)] z-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                                            </div>
+                                        </MagneticWrap>
                                     </li>
                                 ) : (
                                     navHeaderItems.map(({ label, href }) => (
-                                        <li key={href} className="group relative overflow-hidden self-center cursor-pointer">
-                                            <a href={href} className="relative z-10 text-3xl text-[rgb(0_21_36)] font-extrabold transition-colors duration-300 group-hover:text-white px-4 py-2 block">
-                                                {label}
-                                            </a>
-                                            <span className="absolute top-2 bottom-0 left-2 right-2 m-0.5 bg-[rgb(0_21_36)] z-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                                        <li key={href} className="self-center">
+                                            <MagneticWrap>
+                                                <div className="group relative overflow-hidden cursor-pointer">
+                                                    <a href={href} className="relative z-10 text-3xl text-[rgb(0_21_36)] font-extrabold transition-colors duration-300 group-hover:text-white px-4 py-2 block">
+                                                        {label}
+                                                    </a>
+                                                    <span className="absolute top-2 bottom-0 left-2 right-2 m-0.5 bg-[rgb(0_21_36)] z-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+                                                </div>
+                                            </MagneticWrap>
                                         </li>
                                     ))
                                 )}
                             </ul>
                         </nav>
 
-                        {/* Desktop contact button — hidden below lg */}
                         <div className="hidden lg:block mr-20">
-                            {!isBlogPage && <ContactMeButton paddingTxt="12%" />}
+                            {!isBlogPage && (
+                                <MagneticWrap>
+                                    <ContactMeButton paddingTxt="12%" />
+                                </MagneticWrap>
+                            )}
                         </div>
 
-                        {/* Mobile hamburger button — shown below lg */}
                         <button
                             className="lg:hidden flex items-center justify-center p-2 cursor-pointer z-50"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -130,7 +147,6 @@ export default function Header({ isBlogPage = false }: { isBlogPage?: boolean })
                 )}
             </header>
 
-            {/* Mobile dropdown menu overlay */}
             {mobileMenuOpen && showContent && (
                 <div className="fixed top-[13vh] left-0 w-full z-40 bg-[rgb(0_21_36)] lg:hidden animate-in slide-in-from-top-2 duration-300">
                     <nav className="flex flex-col p-5 gap-1">

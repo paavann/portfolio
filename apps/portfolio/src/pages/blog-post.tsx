@@ -4,6 +4,7 @@ import { fetchBlog } from "../lib/api";
 import type { Blog } from "../types/blog";
 import Header from "../components/header";
 import { BlockRenderer } from "../components/blog/block-renderer";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function BlogPost() {
     const { slug } = useParams<{ slug: string }>();
@@ -29,9 +30,17 @@ export default function BlogPost() {
             
             <div className="w-full max-w-4xl mx-auto px-4 sm:px-5 md:px-10 py-5 sm:py-10 flex flex-col">
                 {loading ? (
-                    <div className="text-white text-lg sm:text-xl font-extrabold animate-pulse">Loading...</div>
+                    <div className="flex flex-col gap-6 animate-pulse">
+                        <Skeleton className="h-10 w-3/4 rounded-md" />
+                        <Skeleton className="h-4 w-1/4 rounded-md" />
+                        <div className="flex flex-col gap-2">
+                            <Skeleton className="h-4 w-full rounded-md" />
+                            <Skeleton className="h-4 w-full rounded-md" />
+                            <Skeleton className="h-4 w-full rounded-md" />
+                        </div>
+                    </div>
                 ) : !blog ? (
-                    <div className="text-white text-lg sm:text-xl font-extrabold">Blog not found.</div>
+                    <div className="text-white text-lg sm:text-xl font-semibold">Blog not found.</div>
                 ) : (
                     <article className="flex flex-col w-full pb-10 sm:pb-20">
                         {blog.cover && (
@@ -40,17 +49,17 @@ export default function BlogPost() {
                         
                         <div className="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
                             {blog.tags?.map(tag => (
-                                <span key={tag} className="bg-[rgb(53_211_153)] text-[rgb(0_21_36)] rounded-md px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-extrabold">
+                                <span key={tag} className="bg-[rgb(53_211_153)] text-[rgb(0_21_36)] rounded-md px-3 py-1 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-bold">
                                     {tag}
                                 </span>
                             ))}
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-extrabold mb-5 sm:mb-8 leading-tight tracking-tight">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-black mb-5 sm:mb-8 leading-tight tracking-tight">
                             {blog.title}
                         </h1>
 
-                        <div className="text-gray-400 font-bold mb-8 sm:mb-12 pb-5 sm:pb-8 border-b border-gray-800 flex items-center gap-4 text-sm sm:text-base">
+                        <div className="text-gray-400 font-semibold mb-8 sm:mb-12 pb-5 sm:pb-8 border-b border-gray-800 flex items-center gap-4 text-sm sm:text-base">
                             <span>Published on {new Date(blog.publishedAt).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',

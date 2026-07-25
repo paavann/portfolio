@@ -92,9 +92,9 @@ export default function ContactMeButton({ paddingTxt, }: { paddingTxt: string })
                     <DrawerHeader>
                         <DrawerTitle className="flex justify-center items-center gap-2">
                             <Envelope size={32} className="sm:!w-[45px] sm:!h-[45px]" color="white" />
-                            <span className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-[0.5%]">Contact me</span>
+                            <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-[0.5%]">Contact me</span>
                         </DrawerTitle>
-                        <DrawerDescription className="text-sm sm:text-base text-[rgb(200,210,220)]">Please fill in your details and message if you'd like to work with me. I'll get back to you. :)</DrawerDescription>
+                        <DrawerDescription className="text-sm sm:text-base text-[rgb(200,210,220)] font-medium">Please fill in your details and message if you'd like to work with me. I'll get back to you. :)</DrawerDescription>
                     </DrawerHeader>
 
                     <form
