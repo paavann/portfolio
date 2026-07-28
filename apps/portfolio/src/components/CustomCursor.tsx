@@ -14,6 +14,10 @@ export default function CustomCursor() {
 
     document.documentElement.classList.add("custom-cursor-active");
 
+    if (cursorRef.current) {
+      gsap.set(cursorRef.current, { xPercent: -50, yPercent: -50, scale: 0.2 });
+    }
+
     const onMouseMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
     };
@@ -42,9 +46,9 @@ export default function CustomCursor() {
         target.closest('[data-cursor="hover"]')
       ) {
         gsap.to(cursorRef.current, {
-          scale: 5,
+          scale: 1,
           backgroundColor: "transparent",
-          border: "1px solid rgb(53, 211, 153)",
+          border: "5px solid rgb(53, 211, 153)",
           duration: 0.3,
           ease: "power2.out",
         });
@@ -61,9 +65,9 @@ export default function CustomCursor() {
         target.closest('[data-cursor="hover"]')
       ) {
         gsap.to(cursorRef.current, {
-          scale: 1,
+          scale: 0.2,
           backgroundColor: "rgb(53, 211, 153)",
-          border: "none",
+          border: "3px solid transparent",
           duration: 0.3,
           ease: "power2.out",
         });
@@ -94,10 +98,9 @@ export default function CustomCursor() {
       `}</style>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[9999] will-change-transform mix-blend-difference"
+        className="fixed top-0 left-0 w-[40px] h-[40px] rounded-full pointer-events-none z-[9999] will-change-transform mix-blend-difference"
         style={{
           backgroundColor: "rgb(53, 211, 153)",
-          transform: "translate(-50%, -50%)",
         }}
       />
     </>
