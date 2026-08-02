@@ -467,7 +467,7 @@ The frontend includes a custom `BlockRenderer` component that converts raw Notio
 
 ## License
 
-This project is open source and available for reference and learning purposes...
+This project is open source and available for reference and learning purposes.
 
 ---
 
